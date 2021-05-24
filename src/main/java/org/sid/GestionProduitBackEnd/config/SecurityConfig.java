@@ -39,9 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
     public void configure(HttpSecurity httpSecurity) throws Exception {
 		
-		/*httpSecurity.requiresChannel()
-	      .requestMatchers(r -> r.getHeader("X-Forwarded-Proto") != null)
-	      .requiresSecure();*/
+		
 		
         httpSecurity.cors().and()
                 .csrf().disable()
@@ -68,6 +66,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticated();
         httpSecurity.addFilterBefore(jwtAuthenticationFilter,
                 UsernamePasswordAuthenticationFilter.class);
+        httpSecurity.requiresChannel()
+	      .requestMatchers(r -> r.getHeader("X-Forwarded-Proto") != null)
+	      .requiresSecure();
         
     }
 	 
